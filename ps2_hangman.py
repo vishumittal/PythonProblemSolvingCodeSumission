@@ -1,6 +1,6 @@
 # Problem set 2
 # Name: Vaishnavi Mittal
-# Time spent:3 days
+# Time spent:3:00:00
 
 
 import random
@@ -26,26 +26,26 @@ def chooseWord(wordlist):
 # -----------------------------------
 wordlist = loadWords()
 
-def isWordGuessed(secretWord, lettersGuessed):
+def word_guessed(rand_word, letter_guessed):
     
     c=0
-    for i in lettersGuessed:
-        if i in secretWord:
+    for i in letter_guessed:
+        if i in rand_word:
             c+=1
-    if c==len(secretWord):
+    if c==len(rand_word):
         return True
     else:
         return False
 
 
-def getGuessedWord(secretWord, lettersGuessed):
+def getGuessedWord(rand_word, letter_guessed):
     
     s=[]
-    for i in secretWord:
-        if i in lettersGuessed:
+    for i in rand_word:
+        if i in letter_guessed:
             s.append(i)
     answer=''
-    for i in secretWord:
+    for i in rand_word:
         if i in s:
             answer+=i
         else:
@@ -54,57 +54,57 @@ def getGuessedWord(secretWord, lettersGuessed):
 
 
 
-def getAvailableLetters(lettersGuessed):
+def available_letters(letter_guessed):
     
     import string
     ans=list(string.ascii_lowercase)
-    for i in lettersGuessed:
+    for i in letter_guessed:
         ans.remove(i)
     return ''.join(ans)
 
-def hangman(secretWord):
+def hangman(rand_word):
 
 
     print("Welcome to the game, Hangman!")
-    print("I am thinking of a word that is",len(secretWord),"letters long.")
+    print("I am thinking of a word that is",len(rand_word),"letters long.")
     
-    global lettersGuessed
-    mistakeMade=0
-    lettersGuessed=[]
+    global letter_guessed
+    mistake=0
+    letter_guessed=[]
     
-    while 8 - mistakeMade > 0:
+    while 8 - mistake > 0:
         
-        if isWordGuessed(secretWord, lettersGuessed):
+        if word_guessed(rand_word, letter_guessed):
             print("-------------")
             print("Congratulations, you won!")
             break
             
         else:
             print("-------------")
-            print("You have",8-mistakeMade,"guesses left.")
-            print("Available letters:",getAvailableLetters(lettersGuessed))
+            print("You have",8-mistake,"guesses left.")
+            print("Available letters:",available_letters(letter_guessed))
             guess=str(input("Please guess a letter: ")).lower()
             
-            if guess in lettersGuessed:
-                print("Oops! You've already guessed that letter:",getGuessedWord(secretWord,lettersGuessed))
+            if guess in letter_guessed:
+                print("Oops! You've already guessed that letter:",getGuessedWord(rand_word,letter_guessed))
                 
-            elif guess in secretWord and guess not in lettersGuessed:
-                lettersGuessed.append(guess)
-                print("Good guess:",getGuessedWord(secretWord,lettersGuessed))
+            elif guess in rand_word and guess not in letter_guessed:
+                letter_guessed.append(guess)
+                print("Good guess:",getGuessedWord(rand_word,letter_guessed))
                 
             else:
-                lettersGuessed.append(guess)
-                mistakeMade += 1
-                print("Oops! That letter is not in my word:",getGuessedWord(secretWord,lettersGuessed))
+                letter_guessed.append(guess)
+                mistake += 1
+                print("Oops! That letter is not in my word:",getGuessedWord(rand_word,letter_guessed))
                 
-        if 8 - mistakeMade == 0:
+        if 8 - mistake == 0:
             print("-------------")
-            print("Sorry, you ran out of guesses. The word was else.",secretWord)
+            print("Sorry, you ran out of guesses. The word was else.",rand_word)
             break
         
         else:
             continue
 
 
-secretWord = chooseWord(wordlist).lower()
-hangman(secretWord)
+rand_word= chooseWord(wordlist).lower()
+hangman(rand_word)

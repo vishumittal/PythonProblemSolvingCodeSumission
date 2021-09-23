@@ -1,6 +1,6 @@
 # Problem set 2
 # Name: Vaishnavi Mittal
-# Time spent:2 days
+# Time spent:1:30:00
 
 def evaluate_poly(poly,x):
     answer=0
